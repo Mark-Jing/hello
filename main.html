@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hello, World!</title>
+  <script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+</head>
+<body>
+  <div id='app'>
+    <ul>
+      <li v-for='(list,index) in lists' v-bind:key='list.id'>
+        {{list.title}} <button v-on:click='lists.splice(index,1)'>删除</button>
+      </li>
+    </ul>
+    姓名:<input v-model="newAddName"/><br>
+    性别:<input v-model="newAddGender"/><br>
+    <button @click='addNewList'>提交</button>
+    <button @click='deleteAll'>清空</button>
+  </div>
+  <script>
+    var app=new Vue({
+      el: '#app',
+      data: {
+        newAddName:'',newAddGender:'',
+        lists:[],
+        nextId: 1
+      },
+      methods: {
+        addNewList: function() {
+          this.lists.push({
+            id: this.nextId++,
+            title: '我是'+this.newAddName+','+
+              '我的性别是'+this.newAddGender
+          })
+          this.newAddName='', this.newAddGender=''
+        },
+        deleteAll: function() {
+          this.lists=[]
+        }
+      }
+    })
+  </script>
+</body>
+</html>
